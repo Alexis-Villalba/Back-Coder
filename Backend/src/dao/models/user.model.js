@@ -3,11 +3,19 @@ import mongoose from "mongoose";
 const userCollection = "user";
 
 const userSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  lastName: {type: String, required: true},
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  account: { type: mongoose.Schema.Types.ObjectId, ref: "account" }
-})
+  first_name: String,
+  last_name: String,
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: String,
+  age: Number,
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user"
+  }
+});
 
 export const userModel = mongoose.model(userCollection, userSchema);

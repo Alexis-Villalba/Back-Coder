@@ -1,12 +1,12 @@
-
 import mongoose from "mongoose";
+import envs from "./env.config.js";
 
-export const connectDB = async () => {
+export const connectMongoDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://admin:admin123456@e-commerce.vn9a3yh.mongodb.net/coder-bank");
-    console.log("Mongo Conectado");
-    
+    // Conexión con la base de datos
+    mongoose.connect(envs.MONGO_URL);
+    console.log("Mongo DB Conectado");
   } catch (error) {
-    console.log("Error al conectar Mongo");
+    console.log(error);
   }
-}
+};

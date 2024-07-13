@@ -1,47 +1,38 @@
 import express from "express";
-import handlebars from "express-handlebars";
+import router from "./routes/index.js";
+import { connectMongoDB } from "./config/mongoDb.config.js";
 import session from "express-session";
-import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
 import passport from "passport";
+import initializePassport from "./config/passport.config.js";
+import cookieParser from "cookie-parser";
+import envs from "./config/env.config.js";
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
-import viewRoutes from "./routes/views.routes.js";
-import { connectDB } from "./config/mongoDb.config.js";
-import apiRoutes from "./routes/index.routes.js";
-import { initializePassport } from "./config/passport.config.js";
+connectMongoDB();
 
-const __filename = fileURLToPath(import.meta.url);
-const _dirname = dirname(__filename);
-
-connectDB()
-
-const PORT = 8080;
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.engine("handlebars", handlebars.engine());
-app.set("views", _dirname + "/views");
-app.set("view engine", "handlebars");
-app.use(express.static("public"));
+app.use(cookieParser(envs.CODE_SECRET));
 app.use(
   session({
-    secret: "codigoSecreto",
+    store: MongoStore.create({
+      mongoUrl: envs.MONGO_URL,
+      ttl: 15,
+    }),
+    secret: envs.CODE_SECRET,
     resave: true,
     saveUninitialized: true,
   })
 );
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 initializePassport();
 
-app.use("/", viewRoutes);
-app.use("/api", apiRoutes);
+app.use("/api", router);
 
-app.listen(PORT, () => {
-  console.log(`Server on port ${PORT}`);
+app.listen(envs.PORT, () => {
+  console.log(`Escuchando el servidor en el puerto ${envs.PORT}`);
 });

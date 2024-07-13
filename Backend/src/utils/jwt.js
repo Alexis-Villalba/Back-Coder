@@ -1,16 +1,17 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import envs from "../config/env.config.js"
 
 export const createToken = (user) => {
-  const { id, email } = user;
-  const token = jwt.sign({id, email}, "codigoSecreto", {expiresIn: "1m"});
+  const { _id, email, role } = user;
+  const token = jwt.sign({ _id, email, role }, envs.CODE_SECRET, { expiresIn: "1m" });
   return token;
-}
+};
 
 export const verifyToken = (token) => {
   try {
-    const decoded = jwt.verify(token, "codigoSecreto");
-    return decoded;
+    const decode = jwt.verify(token, envs.CODE_SECRET);
+    return decode;
   } catch (error) {
     return null;
   }
-}
+};
