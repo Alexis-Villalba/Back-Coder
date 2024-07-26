@@ -1,4 +1,5 @@
 import { body, validationResult } from "express-validator";
+
 export const productDataValidator = [
   body("title")
     .isString()
@@ -54,9 +55,11 @@ export const productDataValidator = [
           return { msg: e.msg, data: e.path }
         } )
   
+        // si error no viene vacío
         return res.status(400).json({ status: "error", errors: formatErrors });
       }
   
+      // Si no hay errores continuamos
       next();
     },
 ];

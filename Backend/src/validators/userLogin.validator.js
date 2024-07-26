@@ -7,8 +7,10 @@ export const userLoginValidator = [
   body("password")
   .notEmpty().withMessage("La contraseña es obligatoria"),
   (req, res, next) => {
-    const errors = validationResult(req); 
+    const errors = validationResult(req); // Validamos lo que recibimos por request
+    
     if (!errors.isEmpty()) {
+      
       const formatErrors = errors.array().map( e => {
         return { msg: e.msg, data: e.path }
       } )
@@ -16,6 +18,7 @@ export const userLoginValidator = [
       return res.status(400).json({ status: "error", errors: formatErrors });
     }
 
+    
     next();
   },
 ];
