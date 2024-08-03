@@ -5,4 +5,4 @@ export const isUserCart = async (req = request, res = response, next) => {
     if(req.user.cart !== cid) return res.status(401).json({status: "error", msg: "El id del carrito no corresponde al usuario"});
     
     next();
-}
+};

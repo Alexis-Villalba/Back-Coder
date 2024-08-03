@@ -38,7 +38,7 @@ const purchaseCart = async (cid) => {
           products.push(product)
         }
          
-        // Modificar los productos del carrito
+        // Modificación de los productos del carrito
         await cartsRepository.updateCart(cid, products);
     }
 

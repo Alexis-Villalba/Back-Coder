@@ -7,7 +7,7 @@ export const sendMail = async (email, subject, message, template) => {
     service: "gmail",
     port: 587,
     auth: {
-      user: "profeluismeradev@gmail.com",
+      user: "guidobasano@gmail.com",
       pass: envs.GMAIL_PASS,
     },
   });

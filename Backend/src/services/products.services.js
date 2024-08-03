@@ -33,4 +33,4 @@ export default {
   update,
   deleteOne,
   create
-}
+};

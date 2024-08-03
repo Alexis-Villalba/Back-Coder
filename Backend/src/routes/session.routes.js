@@ -41,7 +41,7 @@ router.get("/email", async (req, res) => {
     </div>
     `;
 
-  await sendMail("profeluismeradev@gmail.com", "Teste nodemailer", "Este es un mensaje de prueba", template);
+  await sendMail("guidobasano@gmail.com", "Teste nodemailer", "Este es un mensaje de prueba", template);
 
   return res.status(200).json({ status: "ok", msg: "Email enviado" });
 });

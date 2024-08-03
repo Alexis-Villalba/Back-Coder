@@ -71,8 +71,6 @@ const deleteProduct = async (id) => {
   await fs.promises.writeFile(pathFile, JSON.stringify(products));
 };
 
-
-
 export default {
   addProduct,
   getProductById,

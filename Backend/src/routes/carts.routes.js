@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { authorization, passportCall } from "../middlewares/passport.middleware.js";
 import { checkProductAndCart } from "../middlewares/checkProductAndCart.middleware.js";
-import cartsControllers from "../controllers/carts.controller.js";
+import cartsControllers from "../controllers/carts.controllers.js";
 import { isUserCart } from "../middlewares/isUserCart.js";
 const router = Router();
 

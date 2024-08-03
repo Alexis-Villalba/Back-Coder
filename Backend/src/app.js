@@ -7,7 +7,7 @@ import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import cookieParser from "cookie-parser";
 import envs from "./config/env.config.js";
-import cors from "cors";
+import cors from "cors";  
 
 connectMongoDB();
 
@@ -16,16 +16,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(envs.CODE_SECRET));
-
-// Puntos de depuración adicionales
-console.log('Mongo URL:', envs.MONGO_URL);
-console.log('Secret:', envs.CODE_SECRET);
-
 app.use(
   session({
     store: MongoStore.create({
       mongoUrl: envs.MONGO_URL,
-      ttl: 15 * 60,
+      ttl: 15,
     }),
     secret: envs.CODE_SECRET,
     resave: true,

@@ -1,12 +1,6 @@
 import dotenv from "dotenv";
 
-dotenv.config(); 
-
-console.log('Loaded environment variables:', {
-  PORT: process.env.PORT,
-  MONGO_URL: process.env.MONGO_URL,
-  CODE_SECRET: process.env.CODE_SECRET
-});
+dotenv.config();
 
 export default {
   PORT: process.env.PORT,

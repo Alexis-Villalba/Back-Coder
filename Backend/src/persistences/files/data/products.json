@@ -10,8 +10,8 @@
     },
     {
       "id": 3,
-      "title": "Producto 3",
-      "description": "el tercer producto",
+      "title": "Producto 2",
+      "description": "el segundo producto",
       "price": 899,
       "thumbnail": "http://www.google.com",
       "code": "ADF125",

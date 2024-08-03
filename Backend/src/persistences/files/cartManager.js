@@ -55,4 +55,4 @@ export default {
   createCart,
   getCartById,
   addProductToCart
-}
+};

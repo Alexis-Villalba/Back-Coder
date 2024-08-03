@@ -23,12 +23,12 @@ const cookieExtracto = (req) => {
 };
 
 const initializePassport = () => {
-  
+  // Esta función inicializa las estrategias
   passport.use(
     "register",
     new LocalStrategy(
       { passReqToCallback: true, usernameField: "email" },
-     
+
       async (req, username, password, done) => {
         try {
           const { first_name, last_name, email, age, role } = req.body;
@@ -63,9 +63,8 @@ const initializePassport = () => {
       try {
         const user = await userRepository.getByEmail(username);
         if (!user || !isValidPassword(user, password)) return done(null, false, { message: "Email o password inválidos" });
-
-       
         return done(null, user);
+
       } catch (error) {
         done(error);
       }
@@ -119,7 +118,7 @@ const initializePassport = () => {
     )
   );
 
-
+  // Serialización y deserialización de usuarios
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });
