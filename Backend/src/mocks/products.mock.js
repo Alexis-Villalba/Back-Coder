@@ -1,22 +1,22 @@
 import { fakerES as faker } from "@faker-js/faker";
-import { productModel } from "../persistences/mongo/models/product.model.js";
+import { userModel } from "../persistences/mongo/models/user.model.js";
 
-export const generateProductsMocks = (amount) => {
-  const products = [];
+export const generateUsersMocks = (amount) => {
+  const users = [];
 
   for (let i = 0; i < amount; i++) {
-    const product = {
-      _id: faker.database.mongodbObjectId(),
-      name: faker.commerce.productName(),
-      description: faker.commerce.productDescription(),
-      price: faker.commerce.price(),
-      category: faker.commerce.department(),
-      stock: faker.number.int({ min: 0, max: 100 }),
+    const user = {
+      fist_name: faker.person.firstName(),
+      last_name: faker.person.lastName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      age: faker.number.int({ min: 18, max: 65 }),
     };
 
-    products.push(product);
+    users.push(user);
   }
-  productModel.insertMany(products);
 
-  return products;
+  userModel.insertMany(users);
+
+  return users;
 };
