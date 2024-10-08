@@ -17,7 +17,7 @@ const getById = async (id) => {
 const create = async (data, user) => {
     let productData = data;
     if (user.role === "premium") {
-        productData = { ...data, owner: user._id };
+        productData = { ...data, owner: user.email };
     }
 
     const product = await productsRepository.create(productData);
@@ -31,8 +31,11 @@ const update = async (id, data) => {
 
 const deleteOne = async (id, user) => {
     const productData = await productsRepository.getById(id);
-    if (user.role === "premium" && productData.owner !== user._id) {
+    if (user.role === "premium" && productData.owner !== user.email) {
         throw error.unauthorizedError("User not authorized");
+    }
+    if(user.rol==="admin" && productData.owner !== "admin"){
+        await sendMail(productData.owner,"Producto eliminado", `El producto ${productData.title} se ha eliminado por un administrador`)
     }
     const product = await productsRepository.deleteOne(id);
     return product;
